@@ -4,7 +4,7 @@ from aiogram.filters import Command
 import keyboards as nav
 
 TOKEN = '8322661609:AAHiSN7rwWaOf8GXGAZj58z-lrjvWBKcvsQ'
-CHANNEL_ID = '-1002155766808'
+CHANNEL_ID = '-1003129813974'
 NOTSUB_MESSAGE = 'Чтобы узнать название фильма, подпишись на канал👇'
 
 logging.basicConfig(level=logging.INFO)
