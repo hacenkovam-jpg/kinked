@@ -33,6 +33,8 @@ async def bot_message(message: types.Message):
                 await message.answer('🔎Для поиска отправьте код фильма')
             elif message.text == '100':
                 await message.answer('🍿 Код: 100 \n<b>Как взломать экзамен</b>', parse_mode='HTML')
+            elif message.text == '101':
+                await message.answer('🍿 Код: 101 \n<b>Миссис Медоуз (2014)</b>', parse_mode='HTML')
             else:
                 await message.answer('<b>🚫Нет фильма с таким кодом</b>', parse_mode='HTML')
         else:
