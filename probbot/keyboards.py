@@ -3,7 +3,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 btnProfile = KeyboardButton(text='🔎ИСКАТЬ ФИЛЬМ ПО КОДУ')
 profileKeyboard = ReplyKeyboardMarkup(keyboard=[[btnProfile]], resize_keyboard=True)
 
-btnUrlChannel = InlineKeyboardButton(text='Подпишись на канал', url='https://t.me/rodjhdlcmnd') #ссылка на канал
+btnUrlChannel = InlineKeyboardButton(text='Подпишись на канал', url='https://t.me/+MQWs5W2aQVI0MDEy') #ссылка на канал
 btnDoneSub = InlineKeyboardButton(text='Я ПОДПИСАЛСЯ👍', callback_data='subchanneldone')
 
 checkSubMenu = InlineKeyboardMarkup(inline_keyboard=[[btnUrlChannel], [btnDoneSub]])
