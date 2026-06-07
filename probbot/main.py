@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 import keyboards as nav
 
-TOKEN = '8322661609:AAHiSN7rwWaOf8GXGAZj58z-lrjvWBKcvsQ'
+TOKEN = '8322661609:AAEhNQWpp0ZeIIYO1z5HHZsJMSmmax-gLGA'
 CHANNEL_ID = '-1003129813974'
 NOTSUB_MESSAGE = 'Чтобы узнать название фильма, подпишись на канал👇'
 
