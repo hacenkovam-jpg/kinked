@@ -7,4 +7,4 @@ btnUrlChannel = InlineKeyboardButton(text='Подпишись на канал', 
 btnUrlChannel2 = InlineKeyboardButton(text='Наш второй канал', url='https://t.me/cult_films20_21')
 btnDoneSub = InlineKeyboardButton(text='Я ПОДПИСАЛСЯ👍', callback_data='subchanneldone')
 
-checkSubMenu = InlineKeyboardMarkup(inline_keyboard=[[btnUrlChannel], [btnDoneSub],[btnUrlChannel2]])
+checkSubMenu = InlineKeyboardMarkup(inline_keyboard=[[btnUrlChannel],[btnUrlChannel2],[btnDoneSub]])
