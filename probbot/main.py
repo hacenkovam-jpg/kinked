@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-async def check_sub_channels(user_id: int) -> bool:
+async def check_sub_channel(user_id: int) -> bool:
     for channel_id in CHANNEL_IDS:
         member = await bot.get_chat_member(chat_id=channel_id, user_id=user_id)
         if member.status == 'left':
