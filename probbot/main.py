@@ -4,7 +4,9 @@ from aiogram.filters import Command
 import keyboards as nav
 
 TOKEN = '8322661609:AAEhNQWpp0ZeIIYO1z5HHZsJMSmmax-gLGA'
-CHANNEL_ID = '-1003129813974'
+CHANNEL_IDS = [ -1003129813974,
+               -1002359663519
+]
 NOTSUB_MESSAGE = 'Чтобы узнать название фильма, подпишись на канал👇'
 
 logging.basicConfig(level=logging.INFO)
@@ -12,9 +14,12 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-async def check_sub_channel(user_id: int) -> bool:
-    chat_member = await bot.get_chat_member(chat_id=CHANNEL_ID, user_id=user_id)
-    return chat_member.status != 'left'
+async def check_sub_channels(user_id: int) -> bool:
+    for channel_id in CHANNEL_IDS:
+        member = await bot.get_chat_member(chat_id=channel_id, user_id=user_id)
+        if member.status == 'left':
+            return False
+    return True
 
 @dp.message(Command("start"))
 async def start(message: types.Message):
