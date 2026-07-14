@@ -36,10 +36,8 @@ async def bot_message(message: types.Message):
         if await check_sub_channel(message.from_user.id):
             if message.text == '🔎ИСКАТЬ ФИЛЬМ ПО КОДУ':
                 await message.answer('🔎Для поиска отправьте код фильма')
-            elif message.text == '100':
-                await message.answer('🍿 Код: 100 \n<b>Как взломать экзамен</b>', parse_mode='HTML')
-            elif message.text == '101':
-                await message.answer('🍿 Код: 101 \n<b>Миссис Медоуз (2014)</b>', parse_mode='HTML')
+            elif message.text == '001':
+                await message.answer('🍿Код: 001 \n<b>Американские животные</b>', parse_mode='HTML')
             elif message.text == '102':
                 await message.answer('🍿 Код: 102 \n<b>Сериал "На льду"</b>', parse_mode='HTML')
             elif message.text == '104':
