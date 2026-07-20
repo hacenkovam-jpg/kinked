@@ -3,11 +3,14 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 btnProfile = KeyboardButton(text='🔎ИСКАТЬ ФИЛЬМ ПО КОДУ')
 profileKeyboard = ReplyKeyboardMarkup(keyboard=[[btnProfile]], resize_keyboard=True)
 
-btnAdminStats = KeyboardButton(text='📊 СТАТИСТИКА')
+# Кнопки для Администратора
+btnAdminStats = KeyboardButton(text='📊 СТАТИСТИКА ЗА ВСЕ ВРЕМЯ')
+btnAdminStatsToday = KeyboardButton(text='📅 СТАТИСТИКА ЗА СЕГОДНЯ')
+
 adminKeyboard = ReplyKeyboardMarkup(
     keyboard=[
         [btnProfile],
-        [btnAdminStats]  # Кнопка статистики будет на второй строчке
+        [btnAdminStats, btnAdminStatsToday]  # Две кнопки встанут в один ряд
     ],
     resize_keyboard=True
 )

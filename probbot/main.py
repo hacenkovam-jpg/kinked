@@ -4,10 +4,8 @@ from aiogram.filters import Command
 import keyboards as nav
 import db
 TOKEN = '8322661609:AAEhNQWpp0ZeIIYO1z5HHZsJMSmmax-gLGA'
-ADMIN_ID = 1970597210
-CHANNEL_IDS = [ -1003129813974,
-               -1002359663519
-]
+ADMIN_IDS = [1970597210, 756544829]
+CHANNEL_IDS = [ -1003129813974,-1002359663519]
 NOTSUB_MESSAGE = 'Чтобы узнать название фильма, подпишись на канал👇'
 
 logging.basicConfig(level=logging.INFO)
@@ -28,7 +26,7 @@ async def start(message: types.Message):
     if message.chat.type == 'private':
         db.add_user(message.from_user.id)
         if await check_sub_channel(message.from_user.id):
-            if message.from_user.id == ADMIN_ID:
+            if message.from_user.id in ADMIN_IDS:
                 await message.answer('👋<b>Привет, Админ!</b> Твоя панель управления готова:',
                                      parse_mode='HTML', reply_markup=nav.adminKeyboard)
             else:
@@ -40,13 +38,18 @@ async def start(message: types.Message):
 
 @dp.message(F.text)
 async def bot_message(message: types.Message):
-    if message.chat.type == 'private':
-        if message.text == '📊 СТАТИСТИКА' and message.from_user.id == ADMIN_ID:
+        # Кнопка: Статистика за всё время (Строка 44)
+        if message.text == '📊 СТАТИСТИКА ЗА ВСЕ ВРЕМЯ' and message.from_user.id in ADMIN_IDS:
             total_users = db.get_users_count()
-            await message.answer(
-                f"📊 <b>Статистика бота</b>\nВсего пользователей запустили бота: <code>{total_users}</code>",
-                parse_mode='HTML')
+            await message.answer(f"📊 <b>Статистика бота</b>\nВсего пользователей за всё время: <code>{total_users}</code>", parse_mode='HTML')
             return
+
+        # Кнопка: Статистика за сегодня (Строка 50)
+        if message.text == '📅 СТАТИСТИКА ЗА СЕГОДНЯ' and message.from_user.id in ADMIN_IDS:
+            today_users = db.get_today_users_count()
+            await message.answer(f"📅 <b>Статистика за сегодня</b>\nНовых пользователей за сегодня: <code>{today_users}</code>", parse_mode='HTML')
+            return
+
         if await check_sub_channel(message.from_user.id):
             if message.text == '🔎ИСКАТЬ ФИЛЬМ ПО КОДУ':
                 await message.answer('🔎Для поиска отправьте код фильма')
@@ -75,7 +78,7 @@ async def subchanneldone(callback: types.CallbackQuery):
     await callback.message.delete()
     if await check_sub_channel(callback.from_user.id):
         db.add_user(callback.from_user.id)
-        if callback.from_user.id == ADMIN_ID:
+        if callback.from_user.id == ADMIN_IDS:
             await callback.message.answer('👋<b>Привет, Админ!</b> Твоя панель управления готова:',
                                           parse_mode='HTML', reply_markup=nav.adminKeyboard)
         else:
@@ -85,6 +88,7 @@ async def subchanneldone(callback: types.CallbackQuery):
         await callback.message.answer(NOTSUB_MESSAGE, reply_markup=nav.checkSubMenu)
 
 if __name__ == '__main__':
+    db.init_db()
     dp.run_polling(bot)
 
 
