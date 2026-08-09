@@ -1,16 +1,20 @@
+import os
 import logging
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 import keyboards as nav
 import db
-TOKEN = '8322661609:AAEhNQWpp0ZeIIYO1z5HHZsJMSmmax-gLGA'
+TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_IDS = [1970597210, 756544829]
 CHANNEL_IDS = [ -1003129813974,-1002359663519]
 NOTSUB_MESSAGE = 'Чтобы узнать название фильма, подпишись на канал👇'
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token=TOKEN)
+if not TOKEN:
+    raise ValueError("Критическая ошибка: Переменная BOT_TOKEN не задана в настройках хостинга!")
+bot = Bot(token=str(TOKEN))
+
 dp = Dispatcher()
 
 async def check_sub_channel(user_id: int) -> bool:
@@ -84,7 +88,7 @@ async def subchanneldone(callback: types.CallbackQuery):
     await callback.message.delete()
     if await check_sub_channel(callback.from_user.id):
         db.add_user(callback.from_user.id)
-        if callback.from_user.id == ADMIN_IDS:
+        if callback.from_user.id in ADMIN_IDS:
             await callback.message.answer('👋<b>Привет, Админ!</b> Твоя панель управления готова:',
                                           parse_mode='HTML', reply_markup=nav.adminKeyboard)
         else:
