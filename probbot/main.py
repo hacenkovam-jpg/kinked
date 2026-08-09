@@ -2,6 +2,7 @@ import os
 import logging
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
+from aiogram.client.session.aiohttp import AiohttpSession
 import keyboards as nav
 import db
 TOKEN = os.getenv("BOT_TOKEN")
@@ -10,10 +11,11 @@ CHANNEL_IDS = [ -1003129813974,-1002359663519]
 NOTSUB_MESSAGE = 'Чтобы узнать название фильма, подпишись на канал👇'
 
 logging.basicConfig(level=logging.INFO)
+session = AiohttpSession()
 
 if not TOKEN:
     raise ValueError("Критическая ошибка: Переменная BOT_TOKEN не задана в настройках хостинга!")
-bot = Bot(token=str(TOKEN))
+bot = Bot(token=str(TOKEN), session=session)
 
 dp = Dispatcher()
 
