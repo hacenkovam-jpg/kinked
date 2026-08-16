@@ -77,6 +77,8 @@ async def bot_message(message: types.Message):
                 await message.answer('🍿Код: 008 \n<b>Форрест Гамп</b>', parse_mode='HTML')
             elif message.text == '009':
                 await message.answer('🍿Код: 009 \n<b>30 дней ночи</b>', parse_mode='HTML')
+            elif message.text == '010':
+                await message.answer('🍿Код: 010 \n<b>Невозможное</b>', parse_mode='HTML')
             elif message.text == '104':
                 await message.answer('🍿 Код: 104 \n<b>Герда</b>', parse_mode='HTML')
             elif message.text == '106':
