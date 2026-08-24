@@ -15,14 +15,18 @@ session = AiohttpSession()
 
 if not TOKEN:
     raise ValueError("Критическая ошибка: Переменная BOT_TOKEN не задана в настройках хостинга!")
-bot = Bot(token=str(TOKEN), session=session)
 
+bot = Bot(token=str(TOKEN), session=session)
 dp = Dispatcher()
 
 async def check_sub_channel(user_id: int) -> bool:
     for channel_id in CHANNEL_IDS:
-        member = await bot.get_chat_member(chat_id=channel_id, user_id=user_id)
-        if member.status == 'left':
+        try:
+            member = await bot.get_chat_member(chat_id=channel_id, user_id=user_id)
+            if member.status in ['left', 'kicked']:
+                return False
+        except Exception as e:
+            logging.error(f"Ошибка проверки подписки {user_id} в {channel_id}: {e}")
             return False
     return True
 
@@ -31,29 +35,52 @@ async def check_sub_channel(user_id: int) -> bool:
 async def start(message: types.Message):
     if message.chat.type == 'private':
         db.add_user(message.from_user.id)
+
+        # 1. СНАЧАЛА проверяем админа (им подписка не нужна)
+        if message.from_user.id in ADMIN_IDS:
+            await message.answer('👋 <b>Привет, Админ!</b> Твоя панель управления готова:', parse_mode='HTML',
+                                 reply_markup=nav.adminKeyboard)
+            return
+
+        # 2. Логика для обычных пользователей
         if await check_sub_channel(message.from_user.id):
-            if message.from_user.id in ADMIN_IDS:
-                await message.answer('👋<b>Привет, Админ!</b> Твоя панель управления готова:',
-                                     parse_mode='HTML', reply_markup=nav.adminKeyboard)
-            else:
-                await message.answer('👋<b>Привет это кинобот</b>, чтобы искать жми на кнопку',
-                                     parse_mode='HTML', reply_markup=nav.profileKeyboard)
+            await message.answer('👋 <b>Привет, это кинобот</b>, чтобы искать жми на кнопку', parse_mode='HTML',
+                                 reply_markup=nav.profileKeyboard)
         else:
             await message.answer(NOTSUB_MESSAGE, reply_markup=nav.checkSubMenu)
 
 
+@dp.callback_query(F.data == "subchanneldone")
+async def check_subscription_callback(callback: types.CallbackQuery):
+    """Обработка кнопки 'Я ПОДПИСАЛСЯ👍'"""
+    user_id = callback.from_user.id
+
+    if await check_sub_channel(user_id):
+        await callback.message.delete()  # Удаляем сообщение с кнопками каналов
+
+        if user_id in ADMIN_IDS:
+            await callback.message.answer('🎉 Спасибо за подписку! Панель управления готова:', parse_mode='HTML',
+                                          reply_markup=nav.adminKeyboard)
+        else:
+            await callback.message.answer('🎉 Спасибо за подписку! Нажми на кнопку ниже для поиска:', parse_mode='HTML',
+                                          reply_markup=nav.profileKeyboard)
+    else:
+        await callback.answer("❌ Вы подписались не на все каналы! Проверьте подписку.", show_alert=True)
+
 @dp.message(F.text)
 async def bot_message(message: types.Message):
-        # Кнопка: Статистика за всё время (Строка 44)
         if message.text == '📊 СТАТИСТИКА ЗА ВСЕ ВРЕМЯ' and message.from_user.id in ADMIN_IDS:
             total_users = db.get_users_count()
             await message.answer(f"📊 <b>Статистика бота</b>\nВсего пользователей за всё время: <code>{total_users}</code>", parse_mode='HTML')
             return
 
-        # Кнопка: Статистика за сегодня (Строка 50)
         if message.text == '📅 СТАТИСТИКА ЗА СЕГОДНЯ' and message.from_user.id in ADMIN_IDS:
             today_users = db.get_today_users_count()
             await message.answer(f"📅 <b>Статистика за сегодня</b>\nНовых пользователей за сегодня: <code>{today_users}</code>", parse_mode='HTML')
+            return
+
+        if not await check_sub_channel(message.from_user.id) and message.from_user.id not in ADMIN_IDS:
+            await message.answer(NOTSUB_MESSAGE, reply_markup=nav.checkSubMenu)
             return
 
         if await check_sub_channel(message.from_user.id):
