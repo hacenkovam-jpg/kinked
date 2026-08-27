@@ -6,8 +6,8 @@ from aiogram.client.session.aiohttp import AiohttpSession
 import keyboards as nav
 import db
 TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_IDS = [1970597210, 756544829]
-CHANNEL_IDS = [ -1003129813974,-1002359663519]
+ADMIN_IDS = [1970597210, 756544829, 8919722055]
+CHANNEL_IDS = [ -1003129813974,-1002359663519, -1003744227147]
 NOTSUB_MESSAGE = 'Чтобы узнать название фильма, подпишись на канал👇'
 
 logging.basicConfig(level=logging.INFO)
@@ -116,6 +116,8 @@ async def bot_message(message: types.Message):
                 await message.answer('🍿 Код: 106 \n<b>Одаренная</b>', parse_mode='HTML')
             elif message.text == '107':
                 await message.answer('🍿Код: 107 \n<b>Шоу Трумана</b>', parse_mode='HTML')
+            elif message.text == '247':
+                await message.answer('🍿Код: 247 \n<b>Семейный план 2023</b>', parse_mode='HTML')
             else:
                 await message.answer('<b>🚫Нет фильма с таким кодом</b>', parse_mode='HTML')
         else:
