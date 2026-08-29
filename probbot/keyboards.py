@@ -18,7 +18,7 @@ adminKeyboard = ReplyKeyboardMarkup(
 
 btnUrlChannel = InlineKeyboardButton(text='Подпишись на канал', url='https://t.me/+MQWs5W2aQVI0MDEy')
 btnUrlChannel2 = InlineKeyboardButton(text='Наш второй канал', url='https://t.me/cult_films20_21')
-btnUrlChannel3 = InlineKeyboardButton(text='Наш третий канал' , url='https://t.me/v1rex_studio')
+btnUrlChannel3 = InlineKeyboardButton(text='Наш третий канал' , url='https://t.me/GoalHub12')
 btnDoneSub = InlineKeyboardButton(text='Я ПОДПИСАЛСЯ👍', callback_data='subchanneldone')
 
 checkSubMenu = InlineKeyboardMarkup(inline_keyboard=[[btnUrlChannel],[btnUrlChannel2],[btnUrlChannel3],[btnDoneSub]])
