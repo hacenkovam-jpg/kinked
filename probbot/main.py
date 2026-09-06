@@ -118,6 +118,8 @@ async def bot_message(message: types.Message):
                  await message.answer('🍿Код: 015 \n<b>Переводчица</b>', parse_mode='HTML')
             elif message.text == '016':
                  await message.answer('🍿Код: 016 \n<b>Тайное окно</b>', parse_mode='HTML')
+            elif message.text == '017':
+                 await message.answer('🍿Код: 017 \n<b>Убежище</b>', parse_mode='HTML')
 
             elif message.text == '104':
                 await message.answer('🍿 Код: 104 \n<b>Герда</b>', parse_mode='HTML')
@@ -134,6 +136,10 @@ async def bot_message(message: types.Message):
                 await message.answer('🍿Код: 296 \n<b>Гнев человеческий 2021</b>', parse_mode='HTML')
             elif message.text == '253':
                 await message.answer('🍿Код: 253 \n<b>8 миллиметров 1999</b>', parse_mode='HTML')
+            elif message.text == '263':
+                await message.answer('🍿Код: 263 \n<b>А ограбление века 2020</b>', parse_mode='HTML')
+            elif message.text == '259':
+                await message.answer('🍿Код: 259 \n<b>Подделки 2023</b>', parse_mode='HTML')
             else:
                 await message.answer('<b>🚫Нет фильма с таким кодом</b>', parse_mode='HTML')
         else:
