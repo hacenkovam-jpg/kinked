@@ -144,6 +144,8 @@ async def bot_message(message: types.Message):
                 await message.answer('🍿Код: 263 \n<b>А ограбление века 2020</b>', parse_mode='HTML')
             elif message.text == '259':
                 await message.answer('🍿Код: 259 \n<b>Подделки 2023</b>', parse_mode='HTML')
+            elif message.text == '298':
+                await message.answer('🍿Код: 298 \n<b>В ритме сердца 2014</b>', parse_mode='HTML')
             else:
                 await message.answer('<b>🚫Нет фильма с таким кодом</b>', parse_mode='HTML')
         else:
