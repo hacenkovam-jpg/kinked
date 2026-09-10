@@ -148,6 +148,13 @@ async def bot_message(message: types.Message):
                 await message.answer('🍿Код: 259 \n<b>Подделки 2023</b>', parse_mode='HTML')
             elif message.text == '298':
                 await message.answer('🍿Код: 298 \n<b>В ритме сердца 2014</b>', parse_mode='HTML')
+            elif message.text == '297':
+                await message.answer('🍿Код: 297 \n<b>Мальчик в полосатой пижаме 2008</b>', parse_mode='HTML')
+            elif message.text == '291':
+                await message.answer('🍿Код: 291 \n<b>Трон: Наследие 2010</b>', parse_mode='HTML')
+            elif message.text == '218':
+                await message.answer('🍿Код: 218 \n<b>Моя девочка 1991</b>', parse_mode='HTML')
+
             else:
                 await message.answer('<b>🚫Нет фильма с таким кодом</b>', parse_mode='HTML')
         else:
