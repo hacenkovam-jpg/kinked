@@ -130,6 +130,10 @@ async def bot_message(message: types.Message):
                  await message.answer('🍿Код: 021 \n<b>Дар</b>', parse_mode='HTML')
             elif message.text == '022':
                  await message.answer('🍿Код: 022 \n<b>Царство Небесное</b>', parse_mode='HTML')
+            elif message.text == '023':
+                await message.answer('🍿Код: 023 \n<b>Волшебное рождество у Микки</b>', parse_mode='HTML')
+            elif message.text == '024':
+                await message.answer('🍿Код: 024 \n<b>Топ Ган: Маверик</b>', parse_mode='HTML')
 
             elif message.text == '104':
                 await message.answer('🍿 Код: 104 \n<b>Герда</b>', parse_mode='HTML')
