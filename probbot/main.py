@@ -87,7 +87,7 @@ async def bot_message(message: types.Message):
             if message.text == '🔎ИСКАТЬ ФИЛЬМ ПО КОДУ':
                 await message.answer('🔎Для поиска отправьте код фильма')
             elif message.text == '001':
-                await message.answer('🍿Код: 001 \n<b>Американские животные.</b>', parse_mode='HTML')
+                await message.answer('🍿Код: 001 \n<b>Американские животные</b>', parse_mode='HTML')
             elif message.text == '002':
                 await message.answer('🍿Код: 002 \n<b>Остров харпера</b>', parse_mode='HTML')
             elif message.text == '003':
@@ -139,7 +139,7 @@ async def bot_message(message: types.Message):
             elif message.text == '026':
                 await message.answer('🍿Код: 026 \n<b>Констанит: Повелить тьмы</b>', parse_mode='HTML')
             elif message.text == '027':
-                await message.answer('🍿Код: 027 \n<b>Разрушитель миров/b>', parse_mode='HTML')
+                await message.answer('🍿Код: 027 \n<b>Разрушитель миров</b>', parse_mode='HTML')
 
                 await message.answer('🍿Код: 107 \n<b>Шоу Трумана</b>', parse_mode='HTML')
             elif message.text == '247':
